@@ -1,0 +1,42 @@
+{
+  "name": "Web Editor",
+  "version": "1.0.3",
+  "description": "Forget about all the Code chaos and Customize your website in a handy way",
+  "permissions": ["activeTab" , "contextMenus", "storage" ],
+  "content_scripts": [
+   {
+     "matches": ["<all_urls>"],
+     "js":[ 
+            "js/common.js" ,  
+            "js/colr_pickr.min.js" ,  
+            "js/data_fetch.js" ,  
+            "js/data_bind.js" ,  
+            "js/temaplate.js" , 
+            "js/gradient.js" , 
+            "content.js"
+        ],
+     "css": [ 
+       "css/web-editor-styles.css",
+      "css/colr_pickr.min.css"
+      ]
+   }
+ ],
+ "background": {
+   "scripts": ["js/background.js"]
+ },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/webeditor16.png",
+      "32": "images/webeditor32.png",
+      "48": "images/webeditor48.png",
+      "128": "images/webeditor128.png"
+    }
+  },
+  "icons": {
+    "16": "images/webeditor16.png",
+    "32": "images/webeditor32.png",
+    "48": "images/webeditor48.png",
+    "128": "images/webeditor128.png"
+  },
+  "manifest_version": 2
+}
