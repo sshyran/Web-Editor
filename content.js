@@ -202,6 +202,7 @@ function selectElement(e, el) {
     if(e){
         e.stopPropagation();
         e.preventDefault();
+        timeStamp = e.timeStamp;
         target = e.target;
     } else{
         target = el;
@@ -210,7 +211,6 @@ function selectElement(e, el) {
     if( $qs('.web-editor-inspect-active') ) {
         $qs('.web-editor-inspect-active').classList.remove('web-editor-inspect-active');
     }
-    timeStamp = e.timeStamp;
     target.classList.add('web-editor-inspect-active');
     updateWEApp();
     $id('we-app-body').scrollTop = 0;
@@ -375,7 +375,9 @@ function weAppEventRegister( ){
         tabBtn.addEventListener('click', mainTabSwitch);
     });
 
-    // Generate Full css
+    // CSS
+    
+    $id('we-css-note').addEventListener('input', editCSS);
     $id('we-full-css').addEventListener('click', generateWeFullCss);
     $id('we-el-css').addEventListener('click', generateWeElCss);
     

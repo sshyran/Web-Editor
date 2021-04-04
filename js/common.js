@@ -9,6 +9,7 @@ let targetStyles = {};
 let weTargetCss = '';
 let websiteColors = [];
 let websiteImages = [];
+let isFullCss = false;
 let weCss = '';
 let fontColorPicker;
 let borderColorPicker;

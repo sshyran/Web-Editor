@@ -486,7 +486,7 @@ const createWEApp = ()=>{
         <p>Changes will be saved locally in brower. It wil be lost once you reset the browser</p>
       </div>
       <h4 id="we-css-title"></h4>
-      <ul id="we-css-note"></ul>
+      <ul id="we-css-note" contenteditable="true"></ul>
       <button class="we-btn we-btn-outline" id="we-el-css" style="display: none">Element CSS</button>
       <button class="we-btn we-btn-outline" id="we-full-css">Full WE Stylesheet</button>
     </div>
