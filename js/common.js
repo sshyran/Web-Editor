@@ -73,6 +73,27 @@ const getPx = (val) => {
   return pxValue;
 }
 
+// Main Tab switch
+function tabSwitch(e){
+  const activeTab = e.target;
+  const tabTarget = activeTab.dataset.tab;
+  const tabNav = activeTab.parentElement;
+  // Remove Active class from Tab button
+  for( let i = 0; i <  tabNav.children.length; i++){
+    tabNav.children[i].classList.remove('active')
+  }
+  // Remove Active class from Tab Pane
+  for( let pi = 0; pi <  tabNav.nextElementSibling.children.length; pi++){
+    tabNav.nextElementSibling.children[pi].classList.remove('active')
+  }
+  activeTab.classList.add('active');
+  $id(tabTarget).classList.add('active');
+
+}
+
+
+
+
 
 function tabImage(e){
   $id('we-tab-btn-bg').classList.add('active');

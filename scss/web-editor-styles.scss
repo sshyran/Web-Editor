@@ -136,8 +136,8 @@ html .web-editor-inspect-active {
 
   #we-app-body {
     padding: 12px;
-    max-height: calc(100vh - 105px);
-    height: calc(100vh - 150px);
+    max-height: calc(100vh - 115px);
+    height: calc(100vh - 200px);
     min-height: 300px;
     overflow-y: auto;
     background: var(--we-base);
@@ -705,6 +705,13 @@ html .web-editor-inspect-active {
 
 // Main tab switch
   .main-tab-pane{
+    display: none;
+    &.active{
+      display: block;
+    }
+  }
+//tab switch
+  .we-tab-pane{
     display: none;
     &.active{
       display: block;

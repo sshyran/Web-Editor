@@ -461,17 +461,33 @@ const createWEApp = ()=>{
   </div>
   <!--/. Eidtor Pane -->
 
-    <!-- Colors Pane -->
-    <div id="we-color-pane" class="main-tab-pane">
-      <ul id="we-color-palette"></ul>
-    </div>
-    <!--/. Colors Pane -->
+    <!-- Properties Pane -->
+    <div id="we-properties-pane" class="main-tab-pane">
+      <div class="we-tab-collection">
+        <div class="we-tab-nav">
+          <button data-tab="we-color-pane"   class="we-btn-tab we-tab-btn we-btn active">Colors</button>
+          <button data-tab="we-image-pane"   class="we-btn-tab we-tab-btn we-btn">Images</button>
+        </div>
 
-    <!-- Image Pane -->
-    <div id="we-image-pane" class="main-tab-pane">
-      <div id="we-img-grid"></div>
+        <div class="we-tab-container">
+          <!-- Colors Pane -->
+          <div id="we-color-pane" class="we-tab-pane active">
+            <ul id="we-color-palette"></ul>
+          </div>
+          <!--/. Colors Pane -->
+      
+          <!-- Image Pane -->
+          <div id="we-image-pane" class="we-tab-pane">
+            <div id="we-img-grid"></div>
+          </div>
+          <!--/. Image Pane -->
+        </div>
+      </div>
     </div>
-    <!--/. Image Pane -->
+    <!--/. Properties Pane -->
+
+
+
 
     <!-- CSS Pane -->
     <div id="we-css-pane" class="main-tab-pane">
@@ -494,10 +510,9 @@ const createWEApp = ()=>{
   </div>
   <div id="we-footer">
     <div id="we-foot-nav">
-      <button data-tab="we-editor-pane"  class="we-foot-nav-btn active">Editor</button>
-      <button data-tab="we-color-pane"   class="we-foot-nav-btn">Colors</button>
-      <button data-tab="we-image-pane"   class="we-foot-nav-btn">Images</button>
-      <button data-tab="we-css-pane"     class="we-foot-nav-btn">CSS</button>
+      <button data-tab="we-editor-pane" class="we-foot-nav-btn active">Editor</button>
+      <button data-tab="we-properties-pane" class="we-foot-nav-btn">Properties</button>
+      <button data-tab="we-css-pane" class="we-foot-nav-btn">CSS</button>
     </div>
     <div id="we-resizer"></div>
   </div>
@@ -682,9 +697,9 @@ function createWebsiteImgGrid() {
   let imgGrid = '';
   websiteImages.forEach((imgSrc) => {
     imgGrid += `<div class="we-img-cl">
-      <img src="${imgSrc}">
+      <img src='${imgSrc}'>
       <div class="we-img-overlay">
-        <a href="${imgSrc}" download title="download" class="we-img-download">
+        <a href='${imgSrc}' download title="download" class="we-img-download">
           <i class="we-ico-download"></i>
         </a>
       </div>

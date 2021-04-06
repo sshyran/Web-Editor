@@ -374,6 +374,10 @@ function weAppEventRegister( ){
     document.querySelectorAll('.we-foot-nav-btn').forEach(tabBtn => {
         tabBtn.addEventListener('click', mainTabSwitch);
     });
+    //tab Switch 
+    document.querySelectorAll('.we-btn-tab').forEach(tabBtn => {
+        tabBtn.addEventListener('click', tabSwitch);
+    });
 
     // CSS
     
