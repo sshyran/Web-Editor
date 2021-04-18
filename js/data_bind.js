@@ -322,7 +322,7 @@ function generateWeElCss(){
 
     for(var i = 0; i < weStylesheet.cssRules.length; i++) {
         let rule = weStylesheet.cssRules[i];
-        if(rule.selectorText === selector){
+        if(rule.selectorText.replace(/\s+/g, '') === selector){
             // assign css properties and values
             for(var s = 0; s < rule.style.length; s++) {
                 const PROP = rule.style[s];
@@ -423,7 +423,7 @@ function generateWeCss(property , value) {
     const cssRule = `${property} : ${value};`;
     
     // Change it if it exists
-    if(weCss.includes(selector)){
+    if(weCss.replace(/\s+/g, '').includes(selector +'{')){
         const si = weCss.indexOf(`${selector} {`);
         const li = weCss.indexOf('}' , si);
         let currentElRule = weCss.substr(si , (li - (si - 3)));
@@ -450,54 +450,21 @@ function generateWeCss(property , value) {
 
 /**
  * generate css selector
- * @param {*} el 
- * @returns 
+ * @param {*} element 
+ * @returns CSS selector with parents 
  */
 
-function generateElSelector(targetEl){
-    if( targetEl.tagName.toLowerCase() !== 'html') {
-        // Build parent selector
-        let parenSelectors = '';
-        
-        if(targetEl.parentElement.tagName.toLowerCase() !== 'body' && targetEl.parentElement.tagName.toLowerCase() !== 'html'){
-            let superParet = '';
-            let grandParet = '';            
-            if( targetEl.parentElement.parentElement.tagName.toLowerCase() !== 'body' && targetEl.parentElement.parentElement.tagName.toLowerCase() !== 'html'){
-                grandParet =  getCssSelector(targetEl.parentElement.parentElement) + ' > ';
-                if( targetEl.parentElement.parentElement.parentElement.tagName.toLowerCase() !== 'body' && targetEl.parentElement.parentElement.parentElement.tagName.toLowerCase() !== 'html'){
-                    superParet =  getCssSelector(targetEl.parentElement.parentElement.parentElement) + ' > ';
-                }
-            }
-            parenSelectors += superParet + grandParet + getCssSelector(targetEl.parentElement) + ' > ';
-        }
-        return parenSelectors + getCssSelector(targetEl);
-    }
+function generateElSelector(element){
+    const idx = (sib, name) => sib 
+        ? idx(sib.previousElementSibling, name||sib.localName) + (sib.localName == name)
+        : 1;
+    const segs = elm => !elm || elm.nodeType !== 1 
+        ? ['']
+        : elm.id && document.getElementById(elm.id) === elm
+            ? [`#${elm.id}`]
+            : [...segs(elm.parentNode),  `${elm.localName.toLowerCase()}:nth-of-type(${idx(elm)})`];
+    return segs(element).join('>');
 }
-
-
-
-/**
- * Create Css selector
- * **/ 
-function getCssSelector(el){
-    if(!el || !el.tagName ){
-        return
-    }
-    let cssSelector = el.tagName.toLowerCase();
-    if(el.id && el.id != ''){
-        el.id.split(' ').forEach(cssId => cssSelector+= `#${cssId}`);
-    }
-    if(el.classList.length){
-        el.classList.forEach(cssClass => {
-            if(cssClass !== 'web-editor-inspect' && cssClass !== 'web-editor-inspect-active'){
-                cssSelector+= `.${cssClass}`
-            }   
-        });
-    }
-    return cssSelector;
-}
-
-
 
 /**
  * Create we Stylesheet

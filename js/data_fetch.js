@@ -255,22 +255,32 @@ const showBgImg = (bg )=> {
 function populateBackground(){
     // background color Picker
     colorPickerComp.colorChange( rgba2hex(targetStyles.backgroundColor)  , $id('we-bgcc'));
-    const bgImg = targetStyles.backgroundImage;
+    let bgImg = targetStyles.backgroundImage;
     isBgGradient = bgImg.match(/linear-gradient|radial-gradient/g)? true: false;
+    let getFirstProp = (item)=> {
+        if(item.includes(',')){
+            return item.split(',')[0];
+        } else {
+            return item
+        }
+    }
 
-    if(isBgGradient){    
+    if(isBgGradient && !bgImg.includes('url(')){    
         gradientTojson(bgImg) // Generate gradient json
         tabGradient(false) // Show Gradient Tab 
         return 
     } 
+    if(bgImg.includes('url(')){
+        bgImg = bgImg.match(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/)[1];
+    }
 
     showBgImg(bgImg); // Populate image data
     tabImage(false); // Show Image Tab 
     
     // Bg Repeat
-     $id('we-bgrc').value =  targetStyles.backgroundRepeat
+     $id('we-bgrc').value =  getFirstProp(targetStyles.backgroundRepeat)
     //  BG Attachment
-     $id('we-bgac').value =  targetStyles.backgroundAttachment
+     $id('we-bgac').value =  getFirstProp(targetStyles.backgroundAttachment)
 
     //  BG position
     $id('we-bgxc').value =  toNumb(targetStyles.backgroundPositionX)
@@ -278,17 +288,18 @@ function populateBackground(){
 
 
     // Bg Size 
-    if(isNaN(parseInt(targetStyles.backgroundSize))) {
+    if(isNaN(parseInt(targetStyles.backgroundSize)) && !targetStyles.backgroundSize.includes('auto') ) {
         $id('we-bgszsc').value = targetStyles.backgroundSize;
         $id('we-c-bg-grp').style.display = 'none';
     } else {
         $id('we-bgszsc').value = 'custom';
         $id('we-c-bg-grp').style.display = 'flex';
 
-        const bgSizeArray =  targetStyles.backgroundSize.split(' ')
-        $id('we-bgszhc').value = parseInt(bgSizeArray[1]);
-        $id('we-bgszwc').value = parseInt(bgSizeArray[0]);
-
+        const bgSizeArray =  targetStyles.backgroundSize.split(/, | /);
+        $id('we-bgszwc').value = bgSizeArray[0] === 'auto'? 0 : parseInt(bgSizeArray[0]);
+        if(bgSizeArray.length > 1){
+            $id('we-bgszhc').value = bgSizeArray[1] === 'auto'? 0 : parseInt(bgSizeArray[1]);
+        }
     }
 
 }

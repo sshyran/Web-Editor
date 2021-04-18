@@ -46,8 +46,9 @@ function grdTypeChange(e, val) {
   } else {
     angEl.style.display = "none";
   }
-
-  updateGradient();
+  if(e){
+    updateGradient();
+  }
 }
 
 
@@ -56,9 +57,11 @@ function grdTypeChange(e, val) {
 */ 
 function grdAngleChange(e , val) {
   grdAngle = val? angleToDeg(val) : e.target.value + 'deg';
-  updateGradient();
   $id('we-angle-range').value = parseInt(grdAngle);
   $id('we-angle-numb').value = parseInt(grdAngle);
+  if(e){
+    updateGradient();
+  }
 }
 
 
@@ -108,6 +111,9 @@ function angleToDeg(angle){
 * Gradient Image Genorator
 */ 
 function grdCodeGenrator() {
+  if(!grCollection.length){
+    return 
+  }
   let angle = grdType === "linear-gradient" ? grdAngle : "circle";
   grdCode = `${grdType}(${angle},`;
 
@@ -172,9 +178,11 @@ function createGrdSlide(collection){
 /*
 * Add Gradient Color Layer and controls
 */ 
-function grdAddClr(e, collection) {
+function grdAddClr(e, collection) { ``
   createGrdSlide(collection);
-  updateGradient();
+  if(e){
+    updateGradient();
+  }
 }
 
 

@@ -157,8 +157,8 @@ function findWebsiteImages(el) {
     if( elStyle.backgroundImage && 
         elStyle.backgroundImage !== 'none' &&  
         elStyle.backgroundImage.includes('url(') ){
-            let imgUrl = elStyle.backgroundImage;
-            addImg(imgUrl.slice(5, -2));
+            let imgUrl = elStyle.backgroundImage.match(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/)[1]
+            addImg(imgUrl);
     }
 
     // Img src
