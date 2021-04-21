@@ -1,6 +1,6 @@
 {
   "name": "Web Editor",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Forget about all the Code chaos and Customize your website in a handy way",
   "permissions": ["activeTab" , "contextMenus", "storage" ],
   "content_scripts": [

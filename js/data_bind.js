@@ -454,17 +454,32 @@ function generateWeCss(property , value) {
  * @returns CSS selector with parents 
  */
 
-function generateElSelector(element){
-    const idx = (sib, name) => sib 
-        ? idx(sib.previousElementSibling, name||sib.localName) + (sib.localName == name)
+
+function generateElSelector(element) {
+    const idx = (sib, name) =>
+      sib
+        ? idx(sib.previousElementSibling, name || sib.localName) +
+          (sib.localName == name)
         : 1;
-    const segs = elm => !elm || elm.nodeType !== 1 
-        ? ['']
+    const segs = (elm) =>
+      !elm || elm.nodeType !== 1
+        ? []
         : elm.id && document.getElementById(elm.id) === elm
-            ? [`#${elm.id}`]
-            : [...segs(elm.parentNode),  `${elm.localName.toLowerCase()}:nth-of-type(${idx(elm)})`];
+        ? [...segs(elm.parentNode), `#${elm.id}`]
+        : idx(elm) > 1
+        ? [
+            ...segs(elm.parentNode),
+            `${elm.localName.toLowerCase()}:nth-of-type(${idx(elm)})`
+          ]
+        : [
+            ...segs(elm.parentNode),
+            elm.className
+              ? elm.localName.toLowerCase() + elm.className.replace(/^|\s+/g, ".")
+              : elm.localName.toLowerCase()
+          ];
     return segs(element).join('>');
-}
+  }
+  
 
 /**
  * Create we Stylesheet
