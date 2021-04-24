@@ -455,7 +455,12 @@ function generateWeCss(property , value) {
  */
 
 
-function generateElSelector(element) {
+function generateElSelector(el) {
+    const elClass = (EL)=> {
+        const INSP = 'web-editor-inspect-active';
+        return EL.classList.contains(INSP)? EL.className.replace(INSP , '').trim() : EL.className;
+    }
+    
     const idx = (sib, name) =>
       sib
         ? idx(sib.previousElementSibling, name || sib.localName) +
@@ -473,11 +478,11 @@ function generateElSelector(element) {
           ]
         : [
             ...segs(elm.parentNode),
-            elm.className
-              ? elm.localName.toLowerCase() + elm.className.replace(/^|\s+/g, ".")
+            elClass(elm)
+              ? elm.localName.toLowerCase() + elClass(elm).replace(/^|\s+/g, ".")
               : elm.localName.toLowerCase()
           ];
-    return segs(element).join('>');
+    return segs(el).join('>');
   }
   
 

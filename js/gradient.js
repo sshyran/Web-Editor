@@ -39,12 +39,9 @@ function grdPickClr(e) {
 */ 
 function grdTypeChange(e, val) {
   grdType = val? val : e.target.value ;
-  const angEl = $id("grd-angle");
-  $id("grd-type").value = grdType; 
-  if (grdType === "linear-gradient") {
-    angEl.style.display = "inline-block";
-  } else {
-    angEl.style.display = "none";
+  $id("grd-angle").style.display = grdType === "linear-gradient"? "inline-block" : "none";
+  if(!e){
+    $id("grd-type").value = grdType; 
   }
   if(e){
     updateGradient();
